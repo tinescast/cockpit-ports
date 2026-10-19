@@ -1,0 +1,113 @@
+/* Ports module – styled to sit inside Cockpit (PatternFly-like), light + dark */
+:root {
+  --bg: #f0f0f0; --card: #ffffff; --fg: #151515; --muted: #6a6e73; --line: #d2d2d2;
+  --row-hover: #f5f5f5; --head: #fafafa; --accent: #0066cc; --input: #ffffff;
+  --green: #3e8635; --green-bg: #f3faf2; --blue: #0066cc; --blue-bg: #e7f1fa;
+  --amber: #8f6400; --amber-bg: #fdf7e7; --red: #c9190b; --red-bg: #faeae8;
+  --chip-bg: #f0f0f0; --chip-line: #d2d2d2;
+}
+html.dark {
+  --bg: #151515; --card: #1f2125; --fg: #e0e0e0; --muted: #a3a6aa; --line: #34373b;
+  --row-hover: #26292d; --head: #1b1d21; --accent: #73bcf7; --input: #151515;
+  --green: #7cc674; --green-bg: rgba(62,134,53,.18); --blue: #73bcf7; --blue-bg: rgba(0,102,204,.22);
+  --amber: #f4c145; --amber-bg: rgba(240,171,0,.16); --red: #f0928a; --red-bg: rgba(201,25,11,.2);
+  --chip-bg: #2a2d31; --chip-line: #3c3f43;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+body { padding: 24px; font: 14px/1.5 "Red Hat Text", "RedHatText", "Overpass", system-ui, sans-serif; }
+
+/* header */
+.header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.logo { width: 44px; height: 44px; border-radius: 10px; background: var(--blue-bg); color: var(--blue);
+        display: grid; place-items: center; flex: none; }
+.logo svg { width: 24px; height: 24px; }
+.header h1 { margin: 0; font: 600 24px/1.2 "Red Hat Display", "RedHatDisplay", inherit; }
+.header p { margin: 2px 0 0; color: var(--muted); }
+
+/* stat cards */
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+@media (max-width: 900px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px;
+        display: flex; gap: 14px; align-items: center; }
+.card .icon { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.card .icon svg { width: 20px; height: 20px; }
+.card .num { font: 600 22px/1.1 "Red Hat Display", inherit; }
+.card .label { font-weight: 600; }
+.card .hint { color: var(--muted); font-size: 12px; }
+.i-green { background: var(--green-bg); color: var(--green); }
+.i-blue  { background: var(--blue-bg);  color: var(--blue); }
+.i-amber { background: var(--amber-bg); color: var(--amber); }
+.i-red   { background: var(--red-bg);   color: var(--red); }
+
+/* main panel */
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.toolbar { display: flex; gap: 10px; padding: 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; align-items: center; }
+.search { position: relative; flex: 1; min-width: 220px; }
+.search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--muted); }
+input, select, button { font: inherit; color: var(--fg); background: var(--input);
+                        border: 1px solid var(--line); border-radius: 6px; height: 36px; padding: 0 10px; }
+input:focus, select:focus, button:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.search input { width: 100%; padding-left: 34px; }
+button { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+button:hover { border-color: var(--accent); }
+button.icon-btn { width: 36px; justify-content: center; padding: 0; }
+button svg { width: 16px; height: 16px; }
+button.spin svg { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.updated { color: var(--muted); font-size: 12px; }
+
+/* table */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--row-hover); }
+th { background: var(--head); font-size: 13px; font-weight: 600; white-space: nowrap; }
+th[data-sort] { cursor: pointer; user-select: none; }
+th[data-sort]::after { content: " ↕"; color: var(--muted); font-size: 11px; }
+th.asc::after  { content: " ↑"; color: var(--accent); }
+th.desc::after { content: " ↓"; color: var(--accent); }
+td.port { font-weight: 700; font-variant-numeric: tabular-nums; }
+.mono { font-family: "Red Hat Mono", ui-monospace, monospace; font-size: 13px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.nowrap { white-space: nowrap; }
+
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px;
+        font-size: 12px; font-weight: 600; white-space: nowrap; }
+.pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.p-listening { color: var(--blue);  background: var(--blue-bg); }
+.p-reserved  { color: var(--amber); background: var(--amber-bg); }
+.p-conflict  { color: var(--red);   background: var(--red-bg); }
+
+.kind { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; max-width: 360px; }
+.chip { padding: 1px 8px; border-radius: 4px; background: var(--chip-bg); border: 1px solid var(--chip-line);
+        font-size: 12px; white-space: nowrap; }
+.empty { padding: 32px; text-align: center; color: var(--muted); }
+
+.p-free { color: var(--green); background: var(--green-bg); }
+
+/* range summary + pager */
+.rangebar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 14px;
+            border-bottom: 1px solid var(--line); background: var(--head); font-size: 13px; }
+.rangebar b { font-weight: 600; }
+.rangebar .pill { cursor: pointer; }
+.pager { display: flex; align-items: center; gap: 16px; padding: 10px 14px; border-top: 1px solid var(--line);
+         justify-content: flex-end; flex-wrap: wrap; }
+.pager label { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; }
+.pager-btns { display: flex; gap: 6px; }
+.pager button { font-size: 18px; }
+button:disabled { opacity: .45; cursor: default; border-color: var(--line); }
+
+/* free ports panel */
+.free { margin-top: 20px; }
+.free .body { padding: 14px; }
+.free h2 { margin: 0; padding: 14px 14px 0; font-size: 16px; font-weight: 600; }
+.free .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.free input[type=number] { width: 100px; }
+.freelist { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 4px; }
+.warn { background: var(--red-bg); color: var(--red); border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; }
+.hidden { display: none; }

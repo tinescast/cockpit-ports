@@ -1,0 +1,9 @@
+{
+  "version": 0,
+  "tools": {
+    "ports": {
+      "label": "Ports",
+      "path": "index.html"
+    }
+  }
+}
