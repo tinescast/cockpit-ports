@@ -25,9 +25,9 @@ It is strictly **read-only**. It only runs `ss`, `ps`, `podman ps`, and `systemc
 ```bash
 git clone https://github.com/tinescast/cockpit-ports.git
 cd cockpit-ports
-./install.sh            # just for your user
+bash install.sh                 # just for your user
 # or
-sudo ./install.sh --system   # for all users
+sudo bash install.sh --system   # for all users
 ```
 
 Then reload Cockpit and open **Ports** in the sidebar.
@@ -41,8 +41,8 @@ Switch Cockpit to **Administrative access** (top bar). Without it, you'll still 
 ## Uninstall
 
 ```bash
-./install.sh --uninstall          # user install
-sudo ./install.sh --system --uninstall
+bash install.sh --uninstall                 # user install
+sudo bash install.sh --system --uninstall   # system install
 ```
 
 ## License
